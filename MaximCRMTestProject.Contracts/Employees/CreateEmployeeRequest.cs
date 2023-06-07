@@ -1,5 +1,5 @@
 namespace MaximCRMTestProject.Contracts.Employees;
-public record EmployeeRequest(
+public record CreateEmployeeRequest(
   string FullName,
   string Position
 );

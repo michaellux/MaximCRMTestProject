@@ -1,6 +1,8 @@
+using MaximCRMTestProject.Domain.Entities;
+
 namespace MaximCRMTestProject.Contracts.Employees;
 public record EmployeeResponse(
-  Guid id,
+  EmployeeId id,
   string FullName,
   string Position
 );

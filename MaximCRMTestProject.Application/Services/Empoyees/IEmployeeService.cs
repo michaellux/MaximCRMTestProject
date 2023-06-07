@@ -1,10 +1,12 @@
+using MaximCRMTestProject.Domain.Entities;
+
 namespace MaximCRMTestProject.Application.Services.Employees;
 
 public interface IEmployeeService
 {
     List<EmployeeResult> GetAll();
-    EmployeeResult Get(Guid id);
-    EmployeeResult Add(string fullName, string position);
-    EmployeeResult Update(Guid Id, string fullName, string position);
-    EmployeeResult Delete(Guid id);
+    EmployeeResult Get(EmployeeId id);
+    EmployeeResult Register(string fullName, string position);
+    EmployeeResult Update(EmployeeId Id, string fullName, string position);
+    EmployeeResult Delete(EmployeeId id);
 }

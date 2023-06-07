@@ -15,15 +15,15 @@ public class EmployeeController : ControllerBase
         _employeeService = employeeService;
     }
 
-    [HttpPost("add")]
-    public IActionResult Add(EmployeeRequest request)
+    [HttpPost("register")]
+    public IActionResult Register(CreateEmployeeRequest request)
     {
-        var employeeResult = _employeeService.Add(
+        var employeeResult = _employeeService.Register(
             request.FullName,
             request.Position);
 
         var response = new EmployeeResponse(
-            employeeResult.id,
+            employeeResult.Id,
             employeeResult.FullName,
             employeeResult.Position);
 

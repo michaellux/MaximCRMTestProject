@@ -1,5 +1,5 @@
 @host=http://localhost:5013
-POST {{host}}/employees/add
+POST {{host}}/employees/register
 Content-Type: application/json
 
 {
