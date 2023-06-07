@@ -16,5 +16,10 @@ namespace MaximCRMTestProject.Infrastructure.Persistence
         {
             return _employees.SingleOrDefault(emp => emp.FullName == fullName);
         }
+
+        public Task<Employee?> GetEmployeeById(EmployeeId id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
