@@ -1,6 +1,12 @@
+using MaximCRMTestProject.Application;
+using MaximCRMTestProject.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 {
-    builder.Services.AddControllers();
+    builder.Services
+        .AddApplication()
+        .AddInfrastructure()
+        .AddControllers();
 }
 var app = builder.Build();
 {
