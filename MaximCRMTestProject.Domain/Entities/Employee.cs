@@ -9,7 +9,7 @@ namespace MaximCRMTestProject.Domain.Entities
             Position = position;
         }
 
-        public EmployeeId Id { get; private set; };
+        public EmployeeId Id { get; private set; }
         public string FullName { get; private set; } = null!;
         public string Position { get; private set; } = null!;
     }
