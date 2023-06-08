@@ -7,16 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\Employees\IEmployeeDbContext.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MaximCRMTestProject.Contracts\MaximCRMTestProject.Contracts.csproj" />
     <ProjectReference Include="..\MaximCRMTestProject.Domain\MaximCRMTestProject.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Employees\Commands\CreateEmployees\" />
-    <Folder Include="Employees\Queries\" />
   </ItemGroup>
 
 </Project>

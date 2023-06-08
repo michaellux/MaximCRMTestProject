@@ -1,5 +1,6 @@
-using MaximCRMTestProject.Application.Services.Employees;
+using MaximCRMTestProject.Application.Services.Employees.Commands.CreateEmployees;
 using MaximCRMTestProject.Contracts.Employees;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MaximCRMTestProject.Api.Controllers;
@@ -8,25 +9,22 @@ namespace MaximCRMTestProject.Api.Controllers;
 [Route("employees")]
 public class EmployeeController : ControllerBase
 {
-    private readonly IEmployeeService _employeeService;
+    private readonly ISender _mediator;
 
-    public EmployeeController(IEmployeeService employeeService)
+    public EmployeeController(ISender mediator)
     {
-        _employeeService = employeeService;
+        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
     }
 
     [HttpPost("register")]
-    public IActionResult Register(CreateEmployeeRequest request)
+    [ProducesResponseType(typeof(EmployeeResponse), StatusCodes.Status201Created)]
+    [ProducesDefaultResponseType]
+    public async Task<IActionResult> Register(CreateEmployeeRequest request)
     {
-        var employeeResult = _employeeService.Register(
-            request.FullName,
-            request.Position);
+        var command = new CreateCommand(request.FullName, request.Position);
 
-        var response = new EmployeeResponse(
-            employeeResult.Id,
-            employeeResult.FullName,
-            employeeResult.Position);
+        var employeeResult = await _mediator.Send(command);
 
-        return Ok(response);
+        return Ok(employeeResult);
     }
 }

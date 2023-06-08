@@ -1,6 +1,6 @@
 using MaximCRMTestProject.Domain.Entities;
 
-namespace MaximCRMTestProject.Application.Services.Employees;
+namespace MaximCRMTestProject.Application.Services.Employees.Common;
 
 public record EmployeeResult(
   EmployeeId Id,

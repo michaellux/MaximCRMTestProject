@@ -1,5 +1,4 @@
 using MaximCRMTestProject.Application.Common.Interfaces.Persistence;
-using MaximCRMTestProject.Application.Services.Employees;
 using MaximCRMTestProject.Infrastructure.Persistence;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,9 +8,8 @@ public static class DependencyInjection
 {
   public static IServiceCollection AddInfrastructure (this IServiceCollection services)
   {
-    services.AddScoped<IEmployeeService, EmployeeService>();
-    services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+        services.AddScoped<IEmployeeRepository, EmployeeRepository>();
     
-    return services;
+        return services;
   }
 }
