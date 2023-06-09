@@ -1,9 +1,10 @@
-﻿using MaximCRMTestProject.Application.Common.Interfaces.Persistence;
+﻿using MaximCRMTestProject.Application.Common.Errors;
+using MaximCRMTestProject.Application.Common.Interfaces.Persistence;
 using MaximCRMTestProject.Application.Services.Employees.Common;
 using MaximCRMTestProject.Domain.Entities;
 using MediatR;
 
-namespace MaximCRMTestProject.Application.Services.Employees.Commands.DeleteEmployees
+namespace MaximCRMTestProject.Application.Services.Employees.Commands.Delete
 {
     internal sealed class DeleteCommandHandler : IRequestHandler<DeleteCommand, EmployeeResult>
     {
@@ -24,7 +25,7 @@ namespace MaximCRMTestProject.Application.Services.Employees.Commands.DeleteEmpl
             }
 
             var result = await _employeeRepository.RemoveAsync(employee);
-            return new EmployeeResult(result.Id, result.FullName, result.Position); 
+            return new EmployeeResult(result.Id, result.FullName, result.Position);
         }
     }
 }

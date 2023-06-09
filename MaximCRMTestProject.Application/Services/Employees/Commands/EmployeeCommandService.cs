@@ -1,4 +1,5 @@
-﻿using MaximCRMTestProject.Application.Common.Interfaces.Persistence;
+﻿using MaximCRMTestProject.Application.Common.Errors;
+using MaximCRMTestProject.Application.Common.Interfaces.Persistence;
 using MaximCRMTestProject.Application.Services.Employees.Common;
 using MaximCRMTestProject.Domain.Entities;
 

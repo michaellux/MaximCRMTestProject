@@ -1,9 +1,10 @@
-﻿using MaximCRMTestProject.Application.Common.Interfaces.Persistence;
+﻿using MaximCRMTestProject.Application.Common.Errors;
+using MaximCRMTestProject.Application.Common.Interfaces.Persistence;
 using MaximCRMTestProject.Application.Services.Employees.Common;
 using MaximCRMTestProject.Domain.Entities;
 using MediatR;
 
-namespace MaximCRMTestProject.Application.Services.Employees.Commands.UpdateEmployees
+namespace MaximCRMTestProject.Application.Services.Employees.Commands.Update
 {
     internal sealed class UpdateCommandHandler : IRequestHandler<UpdateCommand, EmployeeResult>
     {
@@ -24,7 +25,6 @@ namespace MaximCRMTestProject.Application.Services.Employees.Commands.UpdateEmpl
             }
 
             var targetEmployeeWithName = await _employeeRepository.GetEmployeeByFullNameAsync(request.FullName);
-
             if (targetEmployeeWithName is null)
             {
                 employee.Update(request.FullName, request.Position);

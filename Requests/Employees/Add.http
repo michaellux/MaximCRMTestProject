@@ -3,6 +3,6 @@ POST {{host}}/employees/register
 Content-Type: application/json
 
 {
-  "fullName": "Посметный Игорь Семёнович",
-  "position": "Старший инструктор"
+  "fullName": "Великолепный Игорь Семёнович",
+  "position": "cтарший инструктор"
 }

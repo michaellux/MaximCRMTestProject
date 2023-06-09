@@ -2,7 +2,7 @@ using MaximCRMTestProject.Domain.Entities;
 
 namespace MaximCRMTestProject.Contracts.Employees;
 public record EmployeeResponse(
-  EmployeeId id,
+  EmployeeId Id,
   string FullName,
   string Position
 );

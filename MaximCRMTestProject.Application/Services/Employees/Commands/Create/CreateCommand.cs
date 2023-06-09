@@ -2,7 +2,7 @@
 using MaximCRMTestProject.Domain.Entities;
 using MediatR;
 
-namespace MaximCRMTestProject.Application.Services.Employees.Commands.CreateEmployees
+namespace MaximCRMTestProject.Application.Services.Employees.Commands.Create
 {
     public record CreateCommand(
         string FullName,

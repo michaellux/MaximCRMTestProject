@@ -1,9 +1,9 @@
-﻿using MaximCRMTestProject.Application.Common.Interfaces.Persistence;
+﻿using MaximCRMTestProject.Application.Common.Errors;
+using MaximCRMTestProject.Application.Common.Interfaces.Persistence;
 using MaximCRMTestProject.Application.Services.Employees.Common;
-using MaximCRMTestProject.Application.Services.Employees.Queries;
 using MaximCRMTestProject.Domain.Entities;
 
-namespace MaximCRMTestProject.Application.Services.Employees.Commands
+namespace MaximCRMTestProject.Application.Services.Employees.Queries
 {
     public class EmployeeQueryService : IEmployeeQueryService
     {

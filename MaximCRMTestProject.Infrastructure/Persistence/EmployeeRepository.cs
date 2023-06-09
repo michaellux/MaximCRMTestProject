@@ -54,7 +54,7 @@ namespace MaximCRMTestProject.Infrastructure.Persistence
 
         public async Task<Employee> RemoveAsync(Employee employee)
         {
-            _context.Employees.Update(employee);
+            _context.Employees.Remove(employee);
             await _context.SaveChangesAsync();
             return employee;
         }

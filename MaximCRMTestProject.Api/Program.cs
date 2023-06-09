@@ -1,10 +1,7 @@
+using MaximCRMTestProject.Api.Common.Errors;
 using MaximCRMTestProject.Application;
-using MaximCRMTestProject.Application.Common.Interfaces.Persistence;
-using MaximCRMTestProject.Application.Services.Employees;
 using MaximCRMTestProject.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using System.Reflection;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -13,9 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
         .AddApplication()
         .AddInfrastructure()
         .AddControllers();
+
+    builder.Services.AddSingleton<ProblemDetailsFactory, EmployeeProblemDetailsFactory>();
 }
 var app = builder.Build();
 {
+    app.UseExceptionHandler("/error");
     app.UseHttpsRedirection();
     app.MapControllers();
     app.Run();
