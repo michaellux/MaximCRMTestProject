@@ -1,21 +1,20 @@
 ﻿using MaximCRMTestProject.Application.Common.Interfaces.Persistence;
+using MaximCRMTestProject.Application.Services.Employees.Common;
 using MaximCRMTestProject.Domain.Entities;
 using MediatR;
 
 namespace MaximCRMTestProject.Application.Services.Employees.Commands.UpdateEmployees
 {
-    internal sealed class UpdateCommandHandler : IRequestHandler<UpdateCommand>
+    internal sealed class UpdateCommandHandler : IRequestHandler<UpdateCommand, EmployeeResult>
     {
         private readonly IEmployeeRepository _employeeRepository;
-        private readonly IUnitOfWork _unitOfWork;
 
-        public UpdateCommandHandler(IEmployeeRepository employeeRepository, IUnitOfWork unitOfWork)
+        public UpdateCommandHandler(IEmployeeRepository employeeRepository)
         {
             _employeeRepository = employeeRepository;
-            _unitOfWork = unitOfWork;
         }
 
-        public async Task Handle(UpdateCommand request, CancellationToken cancellationToken)
+        public async Task<EmployeeResult> Handle(UpdateCommand request, CancellationToken cancellationToken)
         {
             var employee = await _employeeRepository.GetEmployeeByIdAsync(request.EmployeeId);
 
@@ -24,14 +23,14 @@ namespace MaximCRMTestProject.Application.Services.Employees.Commands.UpdateEmpl
                 throw new EmployeeNotFoundException(request.EmployeeId);
             }
 
-            var targetEmployeeWithName = await _employeeRepository.GetEmployeeByFullName(request.FullName);
+            var targetEmployeeWithName = await _employeeRepository.GetEmployeeByFullNameAsync(request.FullName);
 
             if (targetEmployeeWithName is null)
             {
                 employee.Update(request.FullName, request.Position);
-                _employeeRepository.Update(employee);
+                var result = await _employeeRepository.UpdateAsync(employee);
 
-                await _unitOfWork.SaveChangesAsync(cancellationToken);
+                return new EmployeeResult(result.Id, result.FullName, result.Position);
             }
             else
             {

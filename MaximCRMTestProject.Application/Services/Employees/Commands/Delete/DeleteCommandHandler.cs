@@ -1,21 +1,20 @@
 ﻿using MaximCRMTestProject.Application.Common.Interfaces.Persistence;
+using MaximCRMTestProject.Application.Services.Employees.Common;
 using MaximCRMTestProject.Domain.Entities;
 using MediatR;
 
 namespace MaximCRMTestProject.Application.Services.Employees.Commands.DeleteEmployees
 {
-    internal sealed class DeleteCommandHandler : IRequestHandler<DeleteCommand>
+    internal sealed class DeleteCommandHandler : IRequestHandler<DeleteCommand, EmployeeResult>
     {
         private readonly IEmployeeRepository _employeeRepository;
-        private readonly IUnitOfWork _unitOfWork;
 
-        public DeleteCommandHandler(IEmployeeRepository employeeRepository, IUnitOfWork unitOfWork)
+        public DeleteCommandHandler(IEmployeeRepository employeeRepository)
         {
             _employeeRepository = employeeRepository;
-            _unitOfWork = unitOfWork;
         }
 
-        public async Task Handle(DeleteCommand request, CancellationToken cancellationToken)
+        public async Task<EmployeeResult> Handle(DeleteCommand request, CancellationToken cancellationToken)
         {
             var employee = await _employeeRepository.GetEmployeeByIdAsync(request.EmployeeId);
 
@@ -24,8 +23,8 @@ namespace MaximCRMTestProject.Application.Services.Employees.Commands.DeleteEmpl
                 throw new EmployeeNotFoundException(request.EmployeeId);
             }
 
-            _employeeRepository.Remove(employee);
-            await _unitOfWork.SaveChangesAsync();
+            var result = await _employeeRepository.RemoveAsync(employee);
+            return new EmployeeResult(result.Id, result.FullName, result.Position); 
         }
     }
 }

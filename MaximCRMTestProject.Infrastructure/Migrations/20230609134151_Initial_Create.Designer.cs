@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MaximCRMTestProject.Infrastructure.Migrations
 {
     [DbContext(typeof(EmployeeDbContext))]
-    [Migration("20230607204910_Create_Database")]
-    partial class Create_Database
+    [Migration("20230609134151_Initial_Create")]
+    partial class Initial_Create
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,7 +43,27 @@ namespace MaximCRMTestProject.Infrastructure.Migrations
                     b.HasIndex("FullName")
                         .IsUnique();
 
-                    b.ToTable("Employee");
+                    b.ToTable("Employees", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("35144ed8-6595-4b5a-9d2d-0d8595a40ea8"),
+                            FullName = "Калмыков Макар Владимирович",
+                            Position = "кризис-менеджер"
+                        },
+                        new
+                        {
+                            Id = new Guid("40427991-0373-445b-9a81-4f4a0a13b6b7"),
+                            FullName = "Швецова Яна Григорьевна",
+                            Position = "эколог"
+                        },
+                        new
+                        {
+                            Id = new Guid("255d08eb-4283-41fd-bdae-b69324afed57"),
+                            FullName = "Назаров Александр Львович",
+                            Position = "рыбак"
+                        });
                 });
 #pragma warning restore 612, 618
         }

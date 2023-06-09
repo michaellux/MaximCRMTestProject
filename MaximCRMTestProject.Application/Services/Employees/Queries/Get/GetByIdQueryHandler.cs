@@ -1,21 +1,20 @@
 ﻿using MaximCRMTestProject.Application.Common.Interfaces.Persistence;
-using MaximCRMTestProject.Application.Services.Employees;
-using MaximCRMTestProject.Contracts.Employees;
+using MaximCRMTestProject.Application.Services.Employees.Common;
 using MaximCRMTestProject.Domain.Entities;
 using MediatR;
 
-namespace MaximCRMTestProject.Application.Services.Empoyees.Queries.GetEmployees
+namespace MaximCRMTestProject.Application.Services.Employees.Queries.GetEmployees
 {
-    internal sealed class GetQueryHandler : IRequestHandler<GetQuery>
+    internal sealed class GetByIdQueryHandler : IRequestHandler<GetByIdQuery, EmployeeResult>
     {
         private readonly IEmployeeRepository _employeeRepository;
 
-        public GetQueryHandler(IEmployeeRepository employeeRepository)
+        public GetByIdQueryHandler(IEmployeeRepository employeeRepository)
         {
             _employeeRepository = employeeRepository;
         }
 
-        public async Task Handle(GetQuery query, CancellationToken cancellationToken)
+        public async Task<EmployeeResult> Handle(GetByIdQuery query, CancellationToken cancellationToken)
         {
             var employee = await _employeeRepository.GetEmployeeByIdAsync(query.EmployeeId);
 
@@ -23,6 +22,8 @@ namespace MaximCRMTestProject.Application.Services.Empoyees.Queries.GetEmployees
             {
                 throw new EmployeeNotFoundException(query.EmployeeId);
             }
+
+            return new EmployeeResult(employee.Id, employee.FullName, employee.Position);
         }
     }
 }

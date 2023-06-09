@@ -8,13 +8,16 @@ namespace MaximCRMTestProject.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
+            builder.ToTable("Employees");
+
             builder.HasKey(e => e.Id);
 
             builder.Property(e => e.Id).HasConversion(
                 employeeId => employeeId.Value,
                 value => new EmployeeId(value));
 
-            builder.HasIndex(e => e.FullName).IsUnique();
+            builder.HasIndex(e => e.FullName)
+                .IsUnique();
 
             builder.Property(e => e.Position);
         }

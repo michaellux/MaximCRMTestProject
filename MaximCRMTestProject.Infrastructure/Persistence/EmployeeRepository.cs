@@ -1,5 +1,8 @@
 ﻿using MaximCRMTestProject.Application.Common.Interfaces.Persistence;
+using MaximCRMTestProject.Application.Services.Employees.Common;
 using MaximCRMTestProject.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 
 namespace MaximCRMTestProject.Infrastructure.Persistence
 {
@@ -7,7 +10,12 @@ namespace MaximCRMTestProject.Infrastructure.Persistence
     {
         private readonly EmployeeDbContext _context;
 
-        public async Task<Employee> Add(Employee employee)
+        public EmployeeRepository(EmployeeDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<Employee> AddAsync(Employee employee)
         {
             _context.Employees.Add(employee);
             await _context.SaveChangesAsync();
@@ -15,67 +23,40 @@ namespace MaximCRMTestProject.Infrastructure.Persistence
             return employee;
         }
 
-        public EmployeeRepository(EmployeeDbContext context)
+        public async Task<IEnumerable<Employee>> GetAllEmployeesAsync()
         {
-            _context = context;
+            return await _context.Employees.ToListAsync();
+        }
+
+        public async Task<Employee?> GetEmployeeByIdAsync(EmployeeId id)
+        {
+            return await _context.Employees.Where((employee) => employee.Id == id).FirstOrDefaultAsync();
+        }
+
+        public async Task<Employee?> GetEmployeeByFullNameAsync(string fullName)
+        {
+            var targetEmployee = await _context.Employees.Where((employee) => employee.FullName == fullName).FirstOrDefaultAsync();
+            return targetEmployee;
         }
 
         public Task<Employee?> GetEmployeeByFullName(string fullName)
         {
-            throw new NotImplementedException();
+            var taskEmployee = _context.Employees.Where((employee) => employee.FullName == fullName).FirstOrDefaultAsync();
+            return taskEmployee;
         }
 
-        public Task<Employee?> GetEmployeeByIdAsync(EmployeeId id)
+        public async Task<Employee> UpdateAsync(Employee employee)
         {
-            throw new NotImplementedException();
+            _context.Employees.Update(employee);
+            await _context.SaveChangesAsync();
+            return employee;
         }
 
-        public void Remove(Employee employee)
+        public async Task<Employee> RemoveAsync(Employee employee)
         {
-            throw new NotImplementedException();
+            _context.Employees.Update(employee);
+            await _context.SaveChangesAsync();
+            return employee;
         }
-
-        public void Update(Employee employee)
-        {
-            throw new NotImplementedException();
-        }
-
-        //public EmployeeRepository(EmployeeDbContext context)
-        //{
-        //    _context = context;
-        //}
-
-        //private static readonly List<Employee> _employees = new();
-
-        //public void Add(Employee employee)
-        //{
-        //    _employees.Add(employee);
-
-        //}
-
-        //public Employee? GetEmployeeByFullName(string fullName)
-        //{
-        //    return _employees.SingleOrDefault(emp => emp.FullName == fullName);
-        //}
-
-        //public Task<Employee?> GetEmployeeByIdAsync(EmployeeId id)
-        //{
-        //    return null;
-        //}
-
-        //public void Remove(Employee employee)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public void Update(Employee employee)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //Task<Employee?> IEmployeeRepository.GetEmployeeByFullName(string fullName)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }
