@@ -16,11 +16,11 @@
 
 ![Скриншот программы](./Add.png)
 
-### Delete
+#### Delete
 
 ![Скриншот программы](./Delete.png)
 
-### Update
+#### Update
 
 ![Скриншот программы](./Update.png)
 
