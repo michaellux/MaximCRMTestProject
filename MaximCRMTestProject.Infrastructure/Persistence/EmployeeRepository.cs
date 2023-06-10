@@ -1,4 +1,5 @@
-﻿using MaximCRMTestProject.Application.Common.Interfaces.Persistence;
+﻿using EntityFramework.Exceptions.Common;
+using MaximCRMTestProject.Application.Common.Interfaces.Persistence;
 using MaximCRMTestProject.Application.Services.Employees.Common;
 using MaximCRMTestProject.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -39,17 +40,18 @@ namespace MaximCRMTestProject.Infrastructure.Persistence
             return targetEmployee;
         }
 
-        public Task<Employee?> GetEmployeeByFullName(string fullName)
-        {
-            var taskEmployee = _context.Employees.Where((employee) => employee.FullName == fullName).FirstOrDefaultAsync();
-            return taskEmployee;
-        }
-
         public async Task<Employee> UpdateAsync(Employee employee)
         {
-            _context.Employees.Update(employee);
-            await _context.SaveChangesAsync();
-            return employee;
+            try
+            {
+                _context.Employees.Update(employee);
+                await _context.SaveChangesAsync();
+                return employee;
+            }
+            catch (UniqueConstraintException ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<Employee> RemoveAsync(Employee employee)

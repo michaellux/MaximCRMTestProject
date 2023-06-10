@@ -1,4 +1,5 @@
-﻿using MaximCRMTestProject.Application.Services.Employees;
+﻿using EntityFramework.Exceptions.SqlServer;
+using MaximCRMTestProject.Application.Services.Employees;
 using MaximCRMTestProject.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -47,6 +48,7 @@ namespace MaximCRMTestProject.Infrastructure.Persistence
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.UseExceptionProcessor();
             optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=MaximCRMTestProject");
         }
     }

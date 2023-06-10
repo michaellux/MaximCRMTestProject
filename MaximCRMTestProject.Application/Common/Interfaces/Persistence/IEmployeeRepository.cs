@@ -6,7 +6,6 @@ namespace MaximCRMTestProject.Application.Common.Interfaces.Persistence
     {
         Task<IEnumerable<Employee>> GetAllEmployeesAsync();
         Task<Employee?> GetEmployeeByIdAsync(EmployeeId id);
-        Task<Employee?> GetEmployeeByFullName(string fullName);
         Task<Employee?> GetEmployeeByFullNameAsync(string fullName);
         Task<Employee> AddAsync(Employee employee);
         Task<Employee> UpdateAsync(Employee employee);

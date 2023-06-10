@@ -3,6 +3,9 @@ POST {{host}}/employees/register
 Content-Type: application/json
 
 {
-  "fullName": "Великолепный Игорь Семёнович",
+  "id": {
+      "value": "8544ecfe-84c9-48e4-be4b-1e91ff54ebf2"
+  },
+  "fullName": "Калмыков Макарnyb Владимирович",
   "position": "cтарший инструктор"
 }

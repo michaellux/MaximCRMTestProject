@@ -17,14 +17,18 @@ namespace MaximCRMTestProject.Application.Services.Employees.Queries.Get
 
         public async Task<EmployeeResult> Handle(GetByIdQuery query, CancellationToken cancellationToken)
         {
-            var employee = await _employeeRepository.GetEmployeeByIdAsync(query.EmployeeId);
-
-            if (employee is null)
+            try
             {
-                throw new EmployeeNotFoundException(query.EmployeeId);
-            }
+                var employee = await _employeeRepository.GetEmployeeByIdAsync(query.EmployeeId);
 
-            return new EmployeeResult(employee.Id, employee.FullName, employee.Position);
+                if (employee is null)
+                {
+                    throw new EmployeeNotFoundException(query.EmployeeId);
+                }
+
+                return new EmployeeResult(employee.Id, employee.FullName, employee.Position);
+            }
+            catch (Exception) { throw; }
         }
     }
 }

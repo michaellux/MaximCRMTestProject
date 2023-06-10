@@ -3,6 +3,9 @@ PUT {{host}}/employees/update
 Content-Type: application/json
 
 {
+  "id": {
+      "value": "ab15f9a2-c3ad-4a86-8933-21a9d5a331e3"
+  },
   "fullName": "Калмыков Макар Владимирович",
   "position": "младший инструктор"
 }

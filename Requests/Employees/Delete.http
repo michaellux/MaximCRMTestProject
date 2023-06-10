@@ -1,3 +1,3 @@
 @host=http://localhost:5013
-DELETE {{host}}/employees/delete/9722119b-df36-4847-84b9-aa8546163071
+DELETE {{host}}/employees/delete/7b4ab383-a502-40de-909b-58fa04a24663
 Content-Type: application/json

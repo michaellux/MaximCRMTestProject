@@ -17,15 +17,19 @@ namespace MaximCRMTestProject.Application.Services.Employees.Commands.Delete
 
         public async Task<EmployeeResult> Handle(DeleteCommand request, CancellationToken cancellationToken)
         {
-            var employee = await _employeeRepository.GetEmployeeByIdAsync(request.EmployeeId);
-
-            if (employee is null)
+            try
             {
-                throw new EmployeeNotFoundException(request.EmployeeId);
-            }
+                var employee = await _employeeRepository.GetEmployeeByIdAsync(request.EmployeeId);
 
-            var result = await _employeeRepository.RemoveAsync(employee);
-            return new EmployeeResult(result.Id, result.FullName, result.Position);
+                if (employee is null)
+                {
+                    throw new EmployeeNotFoundException(request.EmployeeId);
+                }
+
+                var result = await _employeeRepository.RemoveAsync(employee);
+                return new EmployeeResult(result.Id, result.FullName, result.Position);
+            }
+            catch (Exception) { throw; }
         }
     }
 }

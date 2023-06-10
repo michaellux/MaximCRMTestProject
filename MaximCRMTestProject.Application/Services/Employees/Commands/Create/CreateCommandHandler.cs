@@ -15,19 +15,25 @@ namespace MaximCRMTestProject.Application.Services.Employees.Commands.Create
             _employeeRepository = employeeRepository;
         }
 
-        public async Task<EmployeeResult> Handle(CreateCommand command, CancellationToken token)
+        public async Task<EmployeeResult>? Handle(CreateCommand command, CancellationToken token)
         {
-            if (_employeeRepository.GetEmployeeByFullName(command.FullName).Result is not null)
+            try
             {
-                throw new EmployeeWithSameFullNameException(command.FullName);
+                var taskEmployee = await _employeeRepository.GetEmployeeByFullNameAsync(command.FullName);
+
+                if (taskEmployee is not null)
+                {
+                    throw new EmployeeWithSameFullNameException(command.FullName);
+                }
+
+                EmployeeId employeeId = new EmployeeId(Guid.NewGuid());
+                var employee = new Employee(employeeId, command.FullName, command.Position);
+
+                var result = await _employeeRepository.AddAsync(employee);
+
+                return new EmployeeResult(result.Id, result.FullName, result.Position);
             }
-
-            EmployeeId employeeId = new EmployeeId(Guid.NewGuid());
-            var employee = new Employee(employeeId, command.FullName, command.Position);
-
-            var result = await _employeeRepository.AddAsync(employee);
-
-            return new EmployeeResult(result.Id, result.FullName, result.Position);
+            catch(Exception) { throw; }
         }
     }
 }
