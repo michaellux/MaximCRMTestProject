@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MaximCRMTestProject.Application.Common.Errors
 {
-    internal class EmployeeEFCoreExceptions : Exception, IServiceException
+    public sealed class EmployeeEFCoreExceptions : Exception, IServiceException
     {
         public HttpStatusCode StatusCode => HttpStatusCode.Conflict;
 
