@@ -1,0 +1,2 @@
+# MaximCRMTestProject
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7120121b4c02419b97799e95af06fdda)](https://app.codacy.com/gh/michaellux/MaximCRMTestProject?utm_source=github.com&utm_medium=referral&utm_content=michaellux/MaximCRMTestProject&utm_campaign=Badge_Grade)
