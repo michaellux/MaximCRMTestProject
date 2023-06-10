@@ -28,3 +28,13 @@
 Apply migration:
 
 ![Скриншот программы](./Migration.png)
+
+Сборка:
+```
+dotnet build
+```
+
+Запуск:
+```
+dotnet run --project ./MaximCRMTestProject.Api
+```
